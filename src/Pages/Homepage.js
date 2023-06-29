@@ -49,17 +49,17 @@ const Homepage = () => {
         borderWidth="1px"
         color="black"
       >
-        <Tabs variant="soft-rounded">
+        <Tabs isFitted variant="soft-rounded">
           <TabList mb="1em">
             <Tab width="50%">Login</Tab>
             <Tab width="50%">Sign-Up</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
-             <Login/>
+              <Login />
             </TabPanel>
             <TabPanel>
-             <Signup/>
+              <Signup />
             </TabPanel>
           </TabPanels>
         </Tabs>

@@ -60,7 +60,7 @@ const SideDrawer = () => {
   
   const toast = useToast();
 
-  const hendleSearch = async () => { 
+  const handleSearch = async () => { 
     if (!search) {
       toast({
         title: "Please Enter Something in Search",
@@ -78,7 +78,10 @@ const SideDrawer = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await axios.get(
+        `http://localhost:3002/api/user?search=${search}`,
+        config
+      );
            setLoading(false);
            setSearchResult(data);
     } catch (error) {
@@ -106,8 +109,11 @@ const SideDrawer = () => {
         },
       };
 
-      const { data } = await axios.post
-        ("/api/chat", { userId }, config);
+      const { data } = await axios.post(
+        "http://localhost:3002/api/chat",
+        { userId },
+        config
+      );
       
       
       if (!chats.find((c) => c._id === data._id))
@@ -132,7 +138,8 @@ const SideDrawer = () => {
     return (
       <>
         <Box
-          d="flex"
+          // d="flex"
+          display="flex"
           justifyContent="space-between"
           alignItems="center"
           bg="#282829ca"
@@ -143,11 +150,13 @@ const SideDrawer = () => {
         >
           <div
             style={{
+              // display:"flex",
               borderWidth: "0.2px",
               borderRadius: "20px",
               borderColor: "grey",
               color: "black",
               background: "#ded9d9",
+
             }}
           >
             <Tooltip
@@ -164,7 +173,7 @@ const SideDrawer = () => {
             </Tooltip>
           </div>
 
-          <Text fontSize="2xl" fontFamily="Work sans">
+          <Text fontSize="2xl" fontFamily="Work sans" color="white">
             Socio-Chit-Chat
           </Text>
           <div>
@@ -178,6 +187,7 @@ const SideDrawer = () => {
                 as={Button}
                 rightIcon={<ChevronDownIcon />}
                 background="#ded9d9"
+                // background="white"
               >
                 <Avatar
                   size="sm"
@@ -187,15 +197,16 @@ const SideDrawer = () => {
                 />
               </MenuButton>
 
-              <MenuList background="black">
+              <MenuList >
                 <ProfileModal user={user}>
-                  <MenuItem background="black" color="white">
+                  <MenuItem>
                     My Profile
                   </MenuItem>
+                  {""}
                 </ProfileModal>
-              </MenuList>
               <MenuDivider />
-              <MenuList onClick={logoutHandler}>Logout</MenuList>
+              <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+              </MenuList>
             </Menu>
           </div>
         </Box>
@@ -204,28 +215,28 @@ const SideDrawer = () => {
         <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
           <DrawerOverlay />
           <DrawerContent
-            background="#000000e9"
-            borderWidth={2}
-            borderRadius="5"
+            // background="#000000e9"
+            // borderWidth={2}
+            // borderRadius="5"
           >
             <DrawerHeader
               borderBottomWidth="1px"
-              color="white"
-              background="#78787a9d"
+              // color="white"
+              // background="#78787a9d"
             >
               Search Users
             </DrawerHeader>
             <DrawerBody>
-              <Box display="flex" paddingBottom={2}>
+              <Box display="flex" pb={2}>
                 <Input
-                  color="white"
+                  // color="white"
                   placeholder="Search by name or email"
                   mr={2}
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                 />
                 <Button
-                  onClick={hendleSearch}
+                  onClick={handleSearch}
                 >Go</Button>
               </Box>
               {loading ? (
@@ -239,7 +250,7 @@ const SideDrawer = () => {
                   />
                 ))
               )}
-              {loadingChat && <Spinner ml="auto" display="flex" />}
+              {loadingChat && <Spinner ml="auto" d="flex" />}
             </DrawerBody>
           </DrawerContent>
         </Drawer>

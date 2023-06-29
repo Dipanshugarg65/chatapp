@@ -41,7 +41,7 @@ const [loading, setLoading] = useState(false);
        };
 
        const { data } = await axios.post(
-         "/api/user/login",
+         "http://localhost:3002/api/user/login",
          { email, password },
          config
        );

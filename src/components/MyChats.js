@@ -7,10 +7,11 @@ import axios from "axios";
 import ChatLoading from './ChatLoading';
 import { AddIcon } from '@chakra-ui/icons';
 import { getSender } from '../config/ChatLogics';
-const MyChats = () => {
- const [loggedUser, setLoggedUser] = useState();
+import GroupChatModel from './miscellaneous/GroupChatModel';
+const MyChats = ({ fetchAgain }) => {
+  const [loggedUser, setLoggedUser] = useState();
 
- const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
+  const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
 
   const toast = useToast();
 
@@ -23,7 +24,8 @@ const MyChats = () => {
       };
 
       const { data } = await axios.get(
-       "/api/chat",config
+        "http://localhost:3002/api/chat",
+        config
       );
       console.log(chats);
 
@@ -51,43 +53,46 @@ const MyChats = () => {
       display={{ base: selectedChat ? "none" : "flex", md: "flex" }}
       flexDir="column"
       alignItems="center"
-      padding={3}
-      background="#282829ca"
-      width={{ base: "100%", md: "27%" }}
+      p={3}
+      bg="#282829ca"
+      width={{ base: "100%", md: "31%" }}
       borderRadius="lg"
       borderColor="grey"
       borderWidth="1px"
     >
       <Box
-        paddingBottom={3}
+        pb={3}
         px={3}
         fontSize={{ base: "28px", md: "30px" }}
         fontFamily="Work sans"
         display="flex"
-        width="100%"
+        w="100%"
         justifyContent="space-between"
         alignItems="center"
         backgroundColor="#000000e9"
         color="white"
       >
         My Chats
-        <Button
-          marginTop={2.5}
-          color="black"
-          backgroundColor="#ded9d9"
-          display="flex"
-          fontSize={{ base: "15px", md: "10px", lg: "15px" }}
-          rightIcon={<AddIcon />}
-        >
-          New Group Chat
-        </Button>
+        <GroupChatModel>
+          <Button
+            marginTop={2.5}
+            color="black"
+            backgroundColor="#ded9d9"
+            display="flex"
+            fontSize={{ base: "17px", md: "10px", lg: "17px" }}
+            rightIcon={<AddIcon />}
+          >
+            New Group Chat
+          </Button>
+        </GroupChatModel>
       </Box>
       <Box
         marginTop={2}
         display="flex"
         flexDir="column"
-        padding={3}
+        p={3}
         background="#000000e9"
+        // bg="#F8F8F8"
         width="100%"
         height="100%"
         borderRadius="lg"
@@ -120,6 +125,6 @@ const MyChats = () => {
       </Box>
     </Box>
   );
-}
+};
 
 export default MyChats;
